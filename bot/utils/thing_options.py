@@ -1,0 +1,5 @@
+NAME = "Название"
+COLORS = "Цвета"
+CATEGORY = "Категория"
+DESCRIPTION = "Описание"
+COST = "Цена"
