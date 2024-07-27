@@ -40,6 +40,8 @@ ADMIN_ID = env.str("ADMIN_ID")
 IBB_API_KEY = env.str("IBB_API_KEY")
 LOGO_URL = env.str("LOGO_URL")
 
+YANDEX_OAUTH_KEY = env.str("YANDEX_OAUTH_KEY")
+
 
 # Application definition
 
@@ -90,7 +92,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DB_NAME = env.str("DB_NAME")
-DB_USER = env.str("USER")
+DB_USER = env.str("DB_USER")
 DB_PASSWORD = env.str("PASSWORD")
 DB_HOST = env.str("HOST")
 
