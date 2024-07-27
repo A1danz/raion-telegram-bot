@@ -52,10 +52,10 @@ async def __map_to_tg_model(thing):
 
     return TgThingModel(
         photos=[TgPhotoModel(photo.file_id, photo.file_path, photo.url) for photo in photos],
-        colors=[color.name for color in colors],
+        colors_list=[color.name for color in colors],
         name=thing.name,
         category=await get_category_by_thing(thing),
         description=thing.description,
         cost=str(thing.cost),
-        id=thing.id
+        thing_id=thing.id
     )

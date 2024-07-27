@@ -111,13 +111,13 @@ class TgThingModel:
         )
 
     def get_thing_card_text(self):
-        result = f"<b>{self.name}</b>"
-        result += f"\n{self.category}"
-        result += f"\nЦвета: {"".join(map(map_color_to_emoji, self.colors))}"
-        result += "\n"
-        result += "Цена: <b>не указана</b>" if self.cost is None else f"Цена: <b>{convert_cost(self.cost)} ₽</b>"
-        result += f"\n\n{self.description}"
-        return result
+        return (
+            f"<b>{self.name}</b>\n"
+            f"{self.category}\n"
+            f"Цвета: {''.join(map(map_color_to_emoji, self.colors))}\n"
+            f"Цена: <b>{'не указана' if self.cost is None else convert_cost(self.cost) + ' ₽'}</b>\n\n"
+            f"{self.description}"
+        )
 
     def get_name_with_price(self):
         return f"{self.name} | {convert_cost(self.cost)} ₽"
@@ -131,7 +131,7 @@ class TgThingModel:
         super().__setattr__(__name, __value)
 
     def standardize_text(self, text: str):
-        text = text.lower().strip().replace("ё", "e")
+        text = text.lower().strip().replace("ё", "е")
         text = text[0].upper() + text[1:]
         return text
 
