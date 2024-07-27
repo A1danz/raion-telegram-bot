@@ -48,6 +48,11 @@ async def handle_add_thing(call: CallbackQuery):
                 message_id=call.message.id
             )
         else:
+            await bot.edit_message_text(
+                THING_SAVING_TEXT,
+                chat_id=call.message.chat.id,
+                message_id=call.message.id
+            )
             thing = await save_thing(
                 thing=user_states[call.from_user.id].tg_model
             )
