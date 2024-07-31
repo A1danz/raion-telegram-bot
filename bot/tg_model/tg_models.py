@@ -130,6 +130,11 @@ class TgThingModel:
 
         super().__setattr__(__name, __value)
 
+    def __eq__(self, other):
+        return (self.id == other.id and self.photos == other.photos and self.colors == other.colors
+                and self.name == other.name and self.category == other.category and self.description == other.description
+                and self.cost == other.cost)
+
     def standardize_text(self, text: str):
         text = text.lower().strip().replace("ё", "е")
         text = text[0].upper() + text[1:]
@@ -141,3 +146,6 @@ class TgPhotoModel:
         self.file_id = file_id
         self.file_path = file_path
         self.url = url
+
+    def __eq__(self, other):
+        return self.file_id == other.file_id
