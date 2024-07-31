@@ -36,6 +36,7 @@ TOKEN_BOT = env.str("TOKEN_BOT")
 WHITE_LIST = env.list("WHITE_LIST")
 HEADER_FILE_ID = env.str("HEADER_FILE_ID")
 ADMIN_ID = env.str("ADMIN_ID")
+ADMIN_USERNAME = env.str("ADMIN_USERNAME")
 
 IBB_API_KEY = env.str("IBB_API_KEY")
 LOGO_URL = env.str("LOGO_URL")

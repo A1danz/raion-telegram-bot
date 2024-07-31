@@ -27,12 +27,17 @@ INLINE_QUERY_LIMIT = 10
 def log_info_about_message(message):
     LOGGER.info(f"{message.from_user.username}: {message.text}")
 
+
 def log_info_about_call(call):
     LOGGER.info(f"{call.message.from_user.username}: ${call.data}")
+
 
 # Handle 'cancel' inline btn
 @bot.callback_query_handler(func=lambda call: call.data == CANCEL_NEW_PRODUCT_CALL)
 async def handle_cancel_new_product(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     message = call.message
     if call.from_user.id in user_states:
@@ -43,6 +48,9 @@ async def handle_cancel_new_product(call: CallbackQuery):
 # Handle 'add thing' inline btn
 @bot.callback_query_handler(func=lambda call: call.data == ADD_THING_CALL)
 async def handle_add_thing(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     try:
         await bot.edit_message_reply_markup(call.message.chat.id, call.message.id, reply_markup=None)
@@ -96,16 +104,17 @@ async def handle_make_order(call: CallbackQuery):
     await bot.edit_message_text(
         chat_id=call.message.chat.id,
         message_id=call.message.id,
-        text=ORDER_MAKED,
+        text=order_maked_text(settings.ADMIN_USERNAME),
         reply_markup=None
     )
-
-    await bot.reply_to(call.message, ORDER_MAKED)
 
 
 # Handle 'delete thing' btn
 @bot.callback_query_handler(func=lambda call: call.data == DELETE_THING_CALL)
 async def handle_delete_thing_call(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     article = call.message.text.split("Артикул: ")[-1].strip()
 
@@ -120,6 +129,9 @@ async def handle_delete_thing_call(call: CallbackQuery):
 # Handle 'yes delete thing' btn
 @bot.callback_query_handler(func=lambda call: call.data == YES_DELETE_CALL)
 async def handle_yes_delete_thing(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     article = call.message.text.split("Артикул: ")[-1].strip()
 
@@ -139,6 +151,9 @@ async def handle_yes_delete_thing(call: CallbackQuery):
 # Handle 'no, cancel delete thing' btn
 @bot.callback_query_handler(func=lambda call: call.data == NO_CANCEL_DELETE_CALL)
 async def handle_no_cancel_delete_thing(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     article = call.message.text.split("Артикул: ")[-1].strip()
 
@@ -153,6 +168,9 @@ async def handle_no_cancel_delete_thing(call: CallbackQuery):
 # Handle 'edit thing' btn
 @bot.callback_query_handler(func=lambda call: call.data == EDITING_OPTIONS_THING_CALL)
 async def handle_edit_thing_call(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     article = call.message.text.split("Артикул: ")[-1].strip()
 
@@ -171,6 +189,9 @@ async def handle_edit_thing_call(call: CallbackQuery):
 # Handle 'not save edits thing' btn
 @bot.callback_query_handler(func=lambda call: call.data == NOT_SAVE_EDITS_THING_CALL)
 async def handle_not_save_edits_btn(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     if call.from_user.id in user_states:
         user_states.pop(call.from_user.id)
@@ -186,6 +207,9 @@ async def handle_not_save_edits_btn(call: CallbackQuery):
 # Handle 'save edits' btn
 @bot.callback_query_handler(func=lambda call: call.data == SAVE_EDITS_THING_CALL)
 async def handle_save_edits_btn(call: CallbackQuery):
+    if str(call.from_user.id) not in settings.WHITE_LIST:
+        return
+
     log_info_about_call(call)
     if call.from_user.id in user_states:
         state = user_states[call.from_user.id]
