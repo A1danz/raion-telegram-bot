@@ -86,8 +86,9 @@ def article_not_found(article):
     return f"<b>{article}</b> - по этому артикулу ничего не найдено."
 
 
-def new_order_for_admin_text(username, name, thing_name, article):
-    return f"🆕 Новый заказ! 🆕\n<b>Пользователь</b> - @{username}.\n<b>Имя</b> - {name}\n<b>Товар:</b> {thing_name}\n<b>Артикул товара</b> - {article}."
+def new_order_for_admin_text(username, name, thing_name, article, time):
+    return (f"🆕 Новый заказ! 🆕\n<b>Пользователь</b> - @{username}.\n<b>Имя</b> - {name}\n<b>Товар:</b> {thing_name}"
+            f"\n<b>Артикул товара</b> - {article}.\n\n<b>Время заказа</b>: {time}")
 
 
 def __add_tg_spoiler_article(text, article):

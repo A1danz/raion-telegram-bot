@@ -5,6 +5,7 @@ from django.conf import settings
 import asyncio
 from asgiref.sync import sync_to_async
 import traceback
+from datetime import datetime
 
 from telebot.async_telebot import AsyncTeleBot
 
@@ -82,6 +83,7 @@ async def handle_add_thing(call: CallbackQuery):
 @bot.callback_query_handler(func=lambda call: call.data == MAKE_ORDER_CALL)
 async def handle_make_order(call: CallbackQuery):
     log_info_about_call(call)
+    ordered_time = datetime.now()
     article = call.message.text.split("Артикул: ")[-1]
 
     thing = await get_by_article(int(article))
@@ -91,7 +93,8 @@ async def handle_make_order(call: CallbackQuery):
             username=call.from_user.username,
             name=call.from_user.first_name,
             thing_name=thing.name,
-            article=article
+            article=article,
+            time=ordered_time.strftime("%d.%m.%Y %H:%M")
         )
     )
 
